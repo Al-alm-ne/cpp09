@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
+#include <sstream>
+#include <iostream>
 
 std::map<std::string, double> buildDataMap()
 {

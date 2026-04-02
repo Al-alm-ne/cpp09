@@ -11,11 +11,9 @@
 #define BWHT "\e[1;37m"
 #define NC "\e[0m"
 
-#include <string>
 #include <map>
-#include <fstream>
-#include <iostream>
-#include <sstream>
+#include <cstdlib>
+#include <string>
 
 std::map<std::string, double>	buildDataMap();
 void	parseData(const std::string& input, std::map<std::string, double> _data);
