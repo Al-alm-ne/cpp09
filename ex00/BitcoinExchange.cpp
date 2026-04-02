@@ -111,7 +111,7 @@ void	parseData(const std::string& input, std::map<std::string, double> _data)
 {
 	std::ifstream	file(input);
 
-	if(!file)
+	if (!file.good())
 	{
 		std::cout << BRED"Error: could not open file.\n" NC;
 		return;
@@ -121,7 +121,7 @@ void	parseData(const std::string& input, std::map<std::string, double> _data)
 
 	if(firstline.empty())
 	{
-		std::cout << "Error: no firstline.\n";
+		std::cout << BRED"Error: no firstline.\n" NC;
 		return;
 	}
 

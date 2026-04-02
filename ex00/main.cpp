@@ -4,7 +4,6 @@ int	main(int ac, char** av)
 {
 	if (ac == 2)
 	{
-
 		std::map<std::string, double> _data;
 		_data = buildDataMap();
 		parseData(av[1], _data);
