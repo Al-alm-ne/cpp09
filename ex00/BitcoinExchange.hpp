@@ -18,5 +18,4 @@
 #include <sstream>
 
 std::map<std::string, double>	buildDataMap();
-void	printMap(std::map<std::string, double> _data);
-bool	parseData();
+void	parseData(const std::string& input, std::map<std::string, double> _data);

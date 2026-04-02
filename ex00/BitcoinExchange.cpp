@@ -1,4 +1,6 @@
 #include "BitcoinExchange.hpp"
+#include <cstddef>
+#include <cstdlib>
 #include <fstream>
 #include <string>
 
@@ -21,58 +23,138 @@ std::map<std::string, double> buildDataMap()
 	return _data;
 }
 
-void	printMap(std::map<std::string, double> _data)
+bool	parseDate(const std::string& date)
 {
-	for (std::map<std::string, double>::iterator it = _data.begin(); it != _data.end(); it++)
-		std::cout << it->first << ", " << it->second << "\n";
+	if (date.length() != 10)
+		return false;
+	if (date[4] != '-' || date[7] != '-')
+		return false;
+	for (size_t i = 0; i < date.length(); ++i)
+	{
+		if (i == 4 || i == 7)
+			continue;
+		if (date[i] < '0' || date[i] > '9')
+			return false;
+	}
+
+	int year = std::atoi(date.substr(0, 4).c_str());
+	int month = std::atoi(date.substr(5, 2).c_str());
+	int day = std::atoi(date.substr(8, 2).c_str());
+	if ((month < 1 || month > 12) || (year < 2009 || year > 2022))
+		return false;
+
+	int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	bool leapMonth = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+	if (leapMonth)
+		daysInMonth[1] = 29;
+	if (day < 1 || day > daysInMonth[month - 1])
+		return false;
+	return true;
 }
 
-bool	parseData()
+bool	parseValue(const std::string& value)
 {
-	std::ifstream	file("input.txt");
+	size_t	i = 0;
+
+	if (value[0] == '-')
+		i++;
+	int	count = 0;
+
+	while (i < value.length())
+	{
+		if (value[i] == '.')
+			count++;
+		if (count > 1 || value[0] == '.' || value[value.length() -1] == '.')
+		{
+			std::cout << BRED"Error: invalid value.\n" NC;
+			return false;
+		}
+		if ((value[i] < '0' || value[i] > '9') && value[i] != '.')
+		{
+			std::cout << BRED"Error: invalid value.\n" NC;
+			return false;
+		}
+		i++;
+	}
+	double dvalue = std::stod(value);
+
+	if (dvalue < 0)
+	{
+		std::cout << BRED"Error: not a positive number.\n" NC;
+		return false;
+	}
+	if (dvalue > 1000)
+	{
+		std::cout << BRED"Error: too large a number.\n" NC;
+		return false;
+	}
+	return true;
+}
+
+void	calculate(std::string date, std::string value, std::map<std::string, double> _data)
+{
+	std::map<std::string, double>::const_iterator it = _data.lower_bound(date);// retorna a referência para a chave exata, se existir, ou para a chave imediatamente superior, se não existir, ou end() se todas forem < date.
+
+	if (it == _data.end() || it->first != date)// não encontrou a data exata
+	{
+		if (it == _data.begin())// data inferior a primeira.
+		{
+			std::cout << BRED"Error: no exchange rate available for this date.\n" NC;
+			return;
+		}
+		--it;// move a referência para a data inferior.
+	}
+	std::cout << date << " => " << value << " = " << std::stod(value) * it->second << "\n";
+}
+
+void	parseData(const std::string& input, std::map<std::string, double> _data)
+{
+	std::ifstream	file(input);
 
 	if(!file)
 	{
-		std::cout << BRED"Input file does not exist!\n" NC;
-		return false;
+		std::cout << BRED"Error: could not open file.\n" NC;
+		return;
 	}
 	std::string	firstline;
 	std::getline(file, firstline);
 
+	if(firstline.empty())
+	{
+		std::cout << "Error: no firstline.\n";
+		return;
+	}
+
 	if(firstline.compare("date | value"))
 	{
-		std::cout << BRED"Incorrect first line => " BMAG << firstline << "\n" NC;
-		return false;
+		std::cout << BRED"Error: incorrect first line => " BMAG << firstline << "\n" NC;
+		return;
 	}
 	std::string	line;
-	
+
 	while (std::getline(file, line))
 	{
 		std::istringstream ss(line);
 	 	std::string date, value;
+		std::string extra;
 		char	sep;
 
-		if (!(ss >> date >> sep >> value) || sep != '|')//extrai 3 tokens de line (date, sep e value). Precisa de espaco entre os elementos.
+		if (!(ss >> date >> sep >> value) || sep != '|' || line.length() < 13 || line[12] != ' ' || line[13] == ' ' || (ss >> extra))//extrai 3 tokens de line (date, sep e value). Precisa de espaco entre os elementos.
 		{
-			std::cout << BRED"Bad Input => " BMAG << line << "\n" NC;
-			return false;
+			std::cout << BRED"Error: bad input => " BMAG << line << "\n" NC;
+			continue;
 		}
-/* 		else if (!parseDate(date))
+		if (!parseDate(date))
 		{
-			std::cout << BRED"Invalid Date => " BMAG << date << "\n" NC;
-			return false;
+			std::cout << BRED"Error: invalid date => " BMAG << date << "\n" NC;
+			continue;
 		}
-		else if (!parseValue(value))
+		if (!parseValue(value))
 		{
-			std::cout << BRED"Invalid Value => " BMAG << value << "\n" NC;
-			return false;
-		} */
-		else
-		{
-			std::cout << BRED" Invalid Input!\n" NC;
-			return false;
+		 	continue;
 		}
+		// std::cout << line << "\n";
+		calculate(date, value, _data);
 	}
 	file.close();
-	return true;
 }
