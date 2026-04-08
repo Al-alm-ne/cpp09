@@ -108,7 +108,7 @@ void	calculate(std::string date, std::string value, std::map<std::string, double
 
 void	parseData(const std::string& input, std::map<std::string, double> _data)
 {
-	std::ifstream	file(input);
+	std::ifstream	file(input.c_str());
 
 	if (!file.good())
 	{
