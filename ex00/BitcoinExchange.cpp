@@ -1,8 +1,5 @@
 #include "BitcoinExchange.hpp"
-#include <cstddef>
-#include <cstdlib>
 #include <fstream>
-#include <string>
 #include <sstream>
 #include <iostream>
 
@@ -20,7 +17,7 @@ std::map<std::string, double> buildDataMap()
 
 		std::getline(ss, date, ',');
 		std::getline(ss, rate);
-		_data[date] = std::stod(rate);
+		_data[date] = std::strtod(rate.c_str(), NULL);
 	}
 	return _data;
 }
