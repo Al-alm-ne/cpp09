@@ -2,7 +2,7 @@ NAME = btc
 
 CXX := c++
 CXXFLAGS += -Wall -Werror -Wextra -g
-# CXXFLAGS += -std=c++98
+CXXFLAGS += -std=c++98
 CXXFLAGS += -Wshadow
 #CXXFLAGS += -Wno-shadow
 

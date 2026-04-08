@@ -75,7 +75,7 @@ bool	parseValue(const std::string& value)
 		}
 		i++;
 	}
-	double dvalue = std::stod(value);
+	double dvalue = std::strtod(value.c_str(), NULL);
 
 	if (dvalue < 0)
 	{
@@ -103,7 +103,7 @@ void	calculate(std::string date, std::string value, std::map<std::string, double
 		}
 		--it;// move a referência para a data inferior.
 	}
-	std::cout << date << " => " << value << " = " << std::stod(value) * it->second << "\n";
+	std::cout << date << " => " << value << " = " << std::strtod(value.c_str(), NULL) * it->second << "\n";
 }
 
 void	parseData(const std::string& input, std::map<std::string, double> _data)
