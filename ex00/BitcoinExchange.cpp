@@ -103,7 +103,7 @@ void	calculate(std::string date, std::string value, std::map<std::string, double
 		}
 		--it;// move a referência para a data inferior.
 	}
-	std::cout << date << " => " << value << " = " << std::strtod(value.c_str(), NULL) * it->second << "\n";
+	std::cout << BWHT << date << " => " << value << " = " << std::strtod(value.c_str(), NULL) * it->second << "\n" NC;
 }
 
 void	parseData(const std::string& input, std::map<std::string, double> _data)
