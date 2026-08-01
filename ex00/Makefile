@@ -17,11 +17,12 @@ OBJS = $(SRCS:.cpp=.o)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 all: $(NAME)
+	@echo "\e[1;33mExecutable file: ./$(NAME)\e[0m\n"
 
 $(NAME): $(OBJS)
 	@echo "\n »» Compiling ««"
 	@$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
-	@echo "\e[1;32mEXERCISE COMPILED.\e[0m\n"
+	@echo "\e[1;32mEXERCISE COMPILED.\e[0m"
 
 val:	$(NAME)
 	@$(VALGRIND) ./$(NAME) $(ARGS)
