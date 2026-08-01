@@ -17,7 +17,7 @@ OBJS = $(SRCS:.cpp=.o)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 all: $(NAME)
-	@echo "\e[1;33mExecutable file: ./$(NAME)\e[0m\n"
+	@echo "\e[1;33mExecutable file: ./$(NAME)\e[0m"
 	@echo "\e[1;45mTo run with valgrind: make val (if no args) or make val ARGS=\"args here\"\e[0m\n"
 
 $(NAME): $(OBJS)
