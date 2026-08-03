@@ -33,7 +33,7 @@ gdb:	$(NAME)
 
 clean:
 	@$(RM) $(OBJS)
-	@echo "\n\e[1;33mObject files removed.\e[0m"
+	@echo "\n\e[1;32mObject files removed.\e[0m"
 
 fclean: clean
 	@echo "\e[1;33mExecutable file removed.\e[0m"
