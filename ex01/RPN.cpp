@@ -13,7 +13,7 @@ bool	is_operator(char c)
 
 // std::stack<int>	buildStack(std::string input)
 // {
-
+	
 // }
 
 void	parseInput(std::string input, s_rpnstack& stc)
