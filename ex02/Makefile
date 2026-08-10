@@ -1,4 +1,4 @@
-NAME = RPN
+NAME = PmergeMe
 
 CXX := c++
 CXXFLAGS += -Wall -Werror -Wextra -g
@@ -10,7 +10,7 @@ RM = rm -f
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 GDB = gdb -q --tui
 
-SRCS = main.cpp RPN.cpp
+SRCS = main.cpp PmergeMe.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 %.o: %.cpp
