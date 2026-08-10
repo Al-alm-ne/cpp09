@@ -14,10 +14,10 @@
 #include <string>
 #include <stack>
 
-struct	s_rpnstack
+struct s_rpnstack
 {
-	std::stack<int>	rpn;
+	std::stack<int> rpn;
 };
 
-void	parseInput(std::string input, s_rpnstack& stc);
-// std::stack<int>	burildStack(std::string input);
+std::stack<int> buildstack(std::string input);
+void parseInput(std::string input, s_rpnstack &stc);
