@@ -24,7 +24,7 @@ std::stack<int> buildstack(std::string input)
 		{
 			if (i + 1 < input.length() && !isspace(static_cast<unsigned char>(input[i + 1])))
 			{
-				std::cerr << BRED "Error.\n" NC;
+				std::cerr << BRED "Error\n" NC;
 				exit(EXIT_FAILURE);
 			}
 			stack.push(input[i] - '0');
@@ -33,7 +33,7 @@ std::stack<int> buildstack(std::string input)
 		{
 			if (stack.size() < 2 || (i + 1 < input.length() && !isspace(static_cast<unsigned char>(input[i + 1]))))
 			{
-				std::cerr << BRED "Error.\n" NC;
+				std::cerr << BRED "Error\n" NC;
 				exit(EXIT_FAILURE);
 			}
 			int right = stack.top();
@@ -52,7 +52,7 @@ std::stack<int> buildstack(std::string input)
 			{
 				if (right == 0)
 				{
-					std::cerr << BRED "Error.\n" NC;
+					std::cerr << BRED "Error\n" NC;
 					exit(EXIT_FAILURE);
 				}
 				result = left / right;
@@ -61,13 +61,13 @@ std::stack<int> buildstack(std::string input)
 		}
 		else
 		{
-			std::cerr << BRED "Error.\n" NC;
+			std::cerr << BRED "Error\n" NC;
 			exit(EXIT_FAILURE);
 		}
 	}
 	if (stack.size() != 1)
 	{
-		std::cerr << BRED "Error.\n" NC;
+		std::cerr << BRED "Error\n" NC;
 		exit(EXIT_FAILURE);
 	}
 	return stack;
