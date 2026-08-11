@@ -12,6 +12,25 @@
 #include <vector>
 #include <string>
 
+PmergeMe::PmergeMe()
+{
+}
+
+PmergeMe::PmergeMe(const PmergeMe &other)
+{
+	(void)other;
+}
+
+PmergeMe &PmergeMe::operator=(const PmergeMe &other)
+{
+	(void)other;
+	return *this;
+}
+
+PmergeMe::~PmergeMe()
+{
+}
+
 static bool isPositiveInteger(const std::string &token, int &value)
 {
 	if (token.empty())
