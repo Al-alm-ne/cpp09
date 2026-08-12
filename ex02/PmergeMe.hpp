@@ -11,10 +11,6 @@
 #define BWHT "\e[1;37m"
 #define NC "\e[0m"
 
-#include <deque>
-#include <string>
-#include <vector>
-
 class PmergeMe
 {
 public:

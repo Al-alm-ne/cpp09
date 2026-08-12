@@ -7,8 +7,6 @@
 #include <iomanip>
 #include <iostream>
 #include <sys/time.h>
-#include <sstream>
-#include <stdexcept>
 #include <vector>
 #include <string>
 
@@ -309,7 +307,7 @@ int PmergeMe::run(int argc, char **argv)
 		}
 		input.push_back(value);
 	}
-	printSequence(BMAG "Before: " BWHT, input);
+	printSequence(BMAG "Before: " NC, input);
 
 	struct timeval startVector;
 	struct timeval endVector;
@@ -323,7 +321,7 @@ int PmergeMe::run(int argc, char **argv)
 	std::deque<int> sortedDeque = sortWithDeque(input);
 	gettimeofday(&endDeque, 0);
 
-	printSequence(BCYN "After: " BWHT, sortedVector);
+	printSequence(BCYN "After: " NC, sortedVector);
 	std::cout << std::fixed << std::setprecision(5);
 	std::cout << BMAG "Time to process a range of " << input.size() << " elements with std::vector : " BWHT
 			  << elapsedMicroseconds(startVector, endVector) << " us" << NC << std::endl;
