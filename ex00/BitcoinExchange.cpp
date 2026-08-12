@@ -40,7 +40,7 @@ bool parseDate(const std::string &date)
 	int year = std::atoi(date.substr(0, 4).c_str());
 	int month = std::atoi(date.substr(5, 2).c_str());
 	int day = std::atoi(date.substr(8, 2).c_str());
-	if ((month < 1 || month > 12) || (year < 2009 || year > 2022))
+	if ((month < 1 || month > 12) || year < 2009)
 		return false;
 
 	int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
